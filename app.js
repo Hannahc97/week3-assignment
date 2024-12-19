@@ -29,19 +29,19 @@ async function getShopUpgrades () {
     // We now need to translate the data we receive from JSON to something we can use 
     const data = await result.json(); 
     // store data in const and use result i got and translate into JSON using json method - need await as result needs to be awaited
-    return data 
+    
     // if you want to value outside function we use return so data is available elsewhere in code 
     
     //How should we store the data? Array
     // How do we create the array - made on line 15
     shopUpgradesArray.push(data);
+    return data
+    
     // console.log(shopUpgradesArray);
 
     // Need to PUSH upgrade items that we got from our fetch, into our empty array!
     // Remember that the upgrades that we fetched will be known by a variable name that you have set on line 29 
 };
-
-
 
 getShopUpgrades();
 
