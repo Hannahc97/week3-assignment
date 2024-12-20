@@ -1,8 +1,8 @@
 console.log("Hello world!");
 
 // We have to store some global values
-let cookieCount = 0
-let cookiesPerSecond = 0
+// let cookieCount = 100 
+// let cookiesPerSecond = 0
 // You can start your game with having no cookies added to your total each second, or you can start with adding 1 cookie per second.
 
 // Can store game data values as object as well
@@ -19,7 +19,6 @@ const shopUpgradesArray = [] // empty array. Maybe we should fill it with the up
 // Select the DOM elements (button, images, p,...)
 
 // Let's come up with a way to retreive and display the upgrades from Joe's API
-
 const upgradesContainer = document.getElementById("upgrades-shop-container");
 
 // https://cookie-upgrade-api.vercel.app/api/upgrades
@@ -27,19 +26,24 @@ async function getShopUpgrades () {
     const result = await fetch("https://cookie-upgrade-api.vercel.app/api/upgrades"); 
     // fetch request some data from URL, hey fetch me data from this url 
     // We now need to translate the data we receive from JSON to something we can use 
-    const data = await result.json(); 
+    const data = await result.json();
     // store data in const and use result i got and translate into JSON using json method - need await as result needs to be awaited
     
-    //How should we store the data? Array
-    // How do we create the array - made on line 15
     // Need to PUSH upgrade items that we got from our fetch, into our empty array!
-    // Remember that the upgrades that we fetched will be known by a variable name that you have set on line 29 
-    shopUpgradesArray.push(data);
+    // Remember that the upgrades that we fetched will be known by a variable name that you have set on line 30 
 
-    return data 
-    // if you want to value outside function we use return so data is available elsewhere in code 
-    
-    // console.log(shopUpgradesArray.push(data));
+    // Use the push method to add each item to the array
+    // shopUpgradesArray.push(data);
+    // console.log(data)
+
+    // alt method? Does it work better?
+
+    data.forEach(function(item) {  // forEach item in the json data, push it into shopupgrades array
+        shopUpgradesArray.push(item);
+    })
+
+    // console.log(shopUpgradesArray);
+    return shopUpgradesArray    // if you want to value outside function we use return so data is available elsewhere in code 
 };
 getShopUpgrades();
 
@@ -50,18 +54,51 @@ async function renderShopUpgrades(){
 
     getShopItems.forEach (function (upgrade){ //each object in array will be called upgrade 
         // go back to gallery loop and apply the same logic to this loop 
-        const upgradeName = upgrade.name;
-        // const upgradeCost = [FINISH THIS CODE]
-        // const upgradeCPSIncrease = [FINISH THIS CODE]
+        const upgradeName = document.createElement("h3");
+        upgradeName.textContent = upgrade.name;
+        upgradeName.className = "upgradeName";
+        console.log(upgradeName);
+        
+
+        const upgradeCost =  document.createElement("h3");
+        upgradeCost.textContent = upgrade.cost;
+        upgradeCost.className = "upgradeCost";
+        // console.log(upgradeCost);
+
+        const upgradeCPSIncrease =  document.createElement("h3");
+        upgradeCPSIncrease.textContent = upgrade.increase;
+        upgradeCPSIncrease.className = "upgradeCPS";
+        // console.log(upgradeCPSIncrease);
+
+        upgradesContainer.appendChild(upgradeName);
+        upgradesContainer.appendChild(upgradeCost);
+        upgradesContainer.appendChild(upgradeCPSIncrease);
+
+        // console.log(upgradesContainer)
+
+        // const buyButton = document.createElement("button");
+        // buyButton.textContent = "Buy";
+        // buyButton.className = "buyButton";
+        // upgradesContainer.appendChild(buyButton);
+
+        // buyButton.addEventListener("click", handleClick);
+        // function handleClick(){
+        //     if (cookieCount >= upgradeCost) {
+        //         totalCookie = cookieCount + upgradeCost
+        //     } else {
+        //         console.log("Not enough cookies")
+        //     }
+
+        // }
+
+
         // These elements should be ones that display text (p,h2...)
         // These are brand values elements that don't contain any content sowe need to assign contntent to them. Exacty thre same strtegy asd when you assigned a scr and alt to the thumbnail images in WK2
         // These values come from the upgrade objects inside our array (the ones we just pushed in there from our API)
         // Instead of these element a src and alt we want to give them some TEXTCONTENT
         // Apend these elements into the relevant container int he same way as you appended your img into the thumbnail container in WK2
         // This is a decent place to also create a button element and attach a event listener to it! - for the upgrade name, upgrade cost... You will then need to create a handler function for the button that you create! 
-
     })
-
 }
 // call the function
 renderShopUpgrades()
@@ -80,8 +117,11 @@ setInterval(function () { // Triggers a function after a certain amount of time 
     // We want to update the cookieCount value on our page as it changes 
     // I want to store this value in local storage so that my user can resume the game with their game data intact.
 
+    gameData.cookieCount = gameData.cookieCount + gameData.cookiesPerSecond
+//     // console.log(gameData.cookieCount)
+
 }, 1000);
 
-//  Timer shouls ave the cookie count in local storage 
+//  Timer should have the cookie count in local storage 
 
 // It is fine to perform all of the actins (3 diff things) that we want our setInterval function to do with external functions, then you can callback those functions inside the setInterval function. 
