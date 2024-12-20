@@ -30,25 +30,23 @@ async function getShopUpgrades () {
     const data = await result.json(); 
     // store data in const and use result i got and translate into JSON using json method - need await as result needs to be awaited
     
-    // if you want to value outside function we use return so data is available elsewhere in code 
-    
     //How should we store the data? Array
     // How do we create the array - made on line 15
-    shopUpgradesArray.push(data);
-    return data
-    
-    // console.log(shopUpgradesArray);
-
     // Need to PUSH upgrade items that we got from our fetch, into our empty array!
     // Remember that the upgrades that we fetched will be known by a variable name that you have set on line 29 
-};
+    // shopUpgradesArray.push(data);
 
+    // return data 
+    // if you want to value outside function we use return so data is available elsewhere in code 
+    
+    console.log(shopUpgradesArray.push(data));
+};
 getShopUpgrades();
 
 // //take data in array and render it to DOM
 // async function renderShopUpgrades(){
 //     const getShopItems = await getShopUpgrades(); // await needed so js will wait to get data 
-//     // Now that we have our upgrade items inside an array, we can perform array method on them! Just like we did for images in teh WK2 gallery submission --> loop through array 
+//     // Now that we have our upgrade items inside an array, we can perform array method on them! Just like we did for images in the WK2 gallery submission --> loop through array 
 
 //     getShopItems.forEach (function (upgrade){ //each object in array will be called upgrade 
 //         // go back to gallery loop and apply the same logic to this loop 
@@ -87,4 +85,3 @@ getShopUpgrades();
 // //  Timer shouls ave the cookie count in local storage 
 
 // // It is fine to perform all of the actins (3 diff things) that we want our setInterval function to do with external functions, then you can callback those functions inside the setInterval function. 
-
